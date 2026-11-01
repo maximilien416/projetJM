@@ -317,11 +317,24 @@ p {
     50% { transform: translateY(8px); }
 }
 
+/* VERSION MOBILE CORRIGÉE */
 @media (max-width: 768px) {
     .snap-section {
         position: relative;
     }
 
+    /* Désactiver les tuiles de nuit sur mobile pour afficher le bâtiment en arrière-plan */
+    .info-pane {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+        background-color: transparent !important;
+        background-image: none !important;
+    }
+
+    /* Le bâtiment (logo + toit + tuiles d'immeuble) occupe tout l'écran en fond */
     .roof-layout,
     .building-pane {
         position: absolute;
@@ -332,18 +345,38 @@ p {
         z-index: 1;
     }
 
-    .info-pane {
+    .roof-layout {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .logo-header {
         position: relative;
-        z-index: 2;
-        width: 100%;
-        height: 100%;
-        padding: 20px;
+        z-index: 3;
+        padding: 20px 15px 10px 15px;
+        background-color: var(--bg-cream);
+    }
+
+    .logo-jm {
+        width: 75vw;
+        max-width: 320px;
+    }
+
+    /* Ordre sur la première section (#toit) : Logo -> Texte & Flèche -> Toit */
+    #toit .roof-info {
+        justify-content: flex-start;
+        padding-top: 110px; /* Espace sous le logo */
+        z-index: 3;
+    }
+
+    .scroll-suggestion {
+        margin-top: 0;
     }
 
     .lino-card {
         max-width: 92%;
     }
-
+}
     .logo-jm {
         width: 80vw;
     }
