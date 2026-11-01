@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mariage 2027 — Immeuble JM</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Filtre SVG pour donner un effet de contour gravé / gougé aux cartes (Linogravure) -->
+    <svg style="position: absolute; width: 0; height: 0;" aria-hidden="true">
+        <defs>
+            <filter id="lino-edge">
+                <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="3.5" xChannelSelector="R" yChannelSelector="G" />
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- Grain linogravure global -->
+    <div class="print-texture"></div>
+
+    <!-- Flèche flottante lors du défilement (replacée en bas à droite) -->
+    <div id="floating-arrow" class="floating-scroll-arrow">
+        <svg viewBox="0 0 24 36" width="28" height="40">
+            <path d="M12 2 L12 30 M5 23 L12 31 L19 23" fill="none" stroke="#FAF7F0" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+
+    <main class="snap-container">
+
+        <!-- ÉTAGE 0 : TOIT -->
+        <section class="snap-section" id="toit">
+            <div class="roof-layout">
+                <div class="logo-header">
+                    <img src="JM-logo.svg" alt="Logo JM" class="logo-jm">
+                </div>
+                <div class="building-pane roof-pane"></div>
+            </div>
+            <div class="info-pane roof-info">
+                <div class="scroll-suggestion">
+                    <span class="scroll-text">Bienvenue aux Horizons ! Défile pour visiter les étages</span>
+                    <svg class="scroll-lino-arrow" viewBox="0 0 24 36" width="24" height="36">
+                        <path d="M12 2 L12 30 M5 23 L12 31 L19 23" fill="none" stroke="#FAF7F0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- ÉTAGE 1 : La fête de mariage -->
+        <section class="snap-section" id="etage-1">
+            <div class="building-pane tile-pane"></div>
+            <div class="info-pane">
+                <article class="lino-card">
+                    <h2>La fête de mariage</h2>
+                    <div class="stamp-badge">la vraie fête !</div>
+                    <p class="date-highlight">Samedi 26 juin 2027</p>
+                    <p class="time">À partir de 14h <small>(à préciser)</small></p>
+                    <p class="location"><strong>Salle du Trianon</strong><br>Lion-sur-mer</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- ÉTAGE 2 : La cérémonie civile -->
+        <section class="snap-section" id="etage-2">
+            <div class="building-pane tile-pane"></div>
+            <div class="info-pane">
+                <article class="lino-card">
+                    <h2>La cérémonie civile</h2>
+                    <div class="stamp-badge">la fête pour les nantais·es !</div>
+                    <p class="date-highlight">Samedi 19 juin 2027</p>
+                    <p class="location"><strong>à 15h30 Hôtel de Ville de Nantes</strong></p>
+                    <p class="details">A 17h, au café des Marchandises</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- ÉTAGE 3 : Questionnaire -->
+        <section class="snap-section" id="etage-3">
+            <div class="building-pane tile-pane"></div>
+            <div class="info-pane">
+                <article class="lino-card">
+                    <h2>Vous venez ?</h2>
+                    <p>Pour nous aider à organiser la cérémonie civile puis le mariage, un gentil questionnaire est à remplir !</p>
+                    <a href="https://framaforms.org/mariage-juliette-maximilien-1793573210" target="_blank" class="lino-btn">Remplir le questionnaire</a>
+                </article>
+            </div>
+        </section>
+
+        <!-- ÉTAGE 4 : Où dormir ? -->
+        <section class="snap-section" id="etage-4">
+            <div class="building-pane tile-pane"></div>
+            <div class="info-pane">
+                <article class="lino-card">
+                    <h2>Où dormir à Lion-sur-Mer ?</h2>
+                    <p>Suggestions de lieux (hôtels, locations, bungalows, campings…)</p>
+                    <a href="https://umap.openstreetmap.fr/fr/map/ou-se-loger_1479227" target="_blank" class="lino-btn alt">Consulter la carte</a>
+                </article>
+            </div>
+        </section>
+
+        <!-- ÉTAGE 5 : Quoi ramener ou offrir ? -->
+        <section class="snap-section" id="etage-5">
+            <div class="building-pane tile-pane"></div>
+            <div class="info-pane">
+                <article class="lino-card">
+                    <h2>Quoi ramener ou offrir ?</h2>
+                    <p class="big-quote">Rien ! On est déjà tellement content de vous voir :)</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- ÉTAGE 6 : Qui contacter ? -->
+        <section class="snap-section" id="etage-6">
+            <div class="building-pane tile-pane"></div>
+            <div class="info-pane">
+                <article class="lino-card">
+                    <h2>Qui contacter ?</h2>
+                    <p>Une question ? N'hésitez pas à nous envoyer un message :</p>
+                    <a href="mailto:contact@example.com" class="lino-link">contact@example.com</a>
+                </article>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

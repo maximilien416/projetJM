@@ -1,0 +1,350 @@
+@font-face {
+    font-family: 'Geom';
+    src: url('Geom-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Geom';
+    src: url('Geom-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+:root {
+    --primary-blue: #2F549E;
+    --accent-red: #EA4C46;
+    --bg-cream: #FAF7F0;
+    --text-dark: #1F2738;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Geom', Georgia, serif;
+    background-color: var(--bg-cream);
+    color: var(--text-dark);
+    overflow: hidden;
+    height: 100vh;
+}
+
+.print-texture {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 99;
+    opacity: 0.05;
+    background-image: radial-gradient(var(--text-dark) 1px, transparent 0);
+    background-size: 16px 16px;
+}
+
+/* DEFILEMENT LIBRE AVEC LEGER MAGNETISME (proximity) */
+.snap-container {
+    height: 100vh;
+    width: 100vw;
+    overflow-y: scroll;
+    scroll-snap-type: y proximity;
+    scroll-behavior: smooth;
+}
+
+.snap-section {
+    height: 100vh;
+    width: 100vw;
+    scroll-snap-align: start;
+    display: flex;
+    position: relative;
+}
+
+/* HEADER du Toit */
+.roof-layout {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+}
+
+.logo-header {
+    width: 100%;
+    padding: 35px 20px 15px 20px;
+    text-align: center;
+    background-color: var(--bg-cream);
+    flex-shrink: 0;
+}
+
+.logo-jm {
+    width: 550px;
+    max-width: 90%;
+    height: auto;
+}
+
+/* MOITIÉ GAUCHE : Bâtiment avec chevauchement de 12px pour éliminer les lignes blanches */
+.building-pane {
+    width: 50%;
+    height: calc(100% + 12px);
+    margin-bottom: -12px;
+    position: relative;
+    z-index: 2;
+    background-color: var(--bg-cream);
+    background-image: 
+        radial-gradient(var(--primary-blue) 1.5px, transparent 1.5px),
+        radial-gradient(var(--primary-blue) 1px, transparent 1px),
+        radial-gradient(var(--primary-blue) 2px, transparent 2px);
+    background-size: 140px 140px, 90px 90px, 180px 180px;
+    background-position: 15px 20px, 50px 70px, 110px 35px;
+}
+
+.roof-layout .building-pane {
+    width: 100%;
+    flex-grow: 1;
+}
+
+/* Toit et Tuile ajustés à 100% de la largeur pour garantir une largeur identique en pixels */
+.roof-pane {
+    background-image: 
+        url('site-horizon-toit.svg'),
+        radial-gradient(var(--primary-blue) 1.5px, transparent 1.5px),
+        radial-gradient(var(--primary-blue) 1px, transparent 1px);
+    background-size: 100% auto, 140px 140px, 90px 90px;
+    background-position: bottom center, 15px 20px, 50px 70px;
+    background-repeat: no-repeat, repeat, repeat;
+}
+
+.tile-pane {
+    background-image: 
+        url('site-horizon-tuile.svg'),
+        radial-gradient(var(--primary-blue) 1.5px, transparent 1.5px),
+        radial-gradient(var(--primary-blue) 1px, transparent 1px);
+    background-size: 100% auto, 140px 140px, 90px 90px;
+    background-position: center top, 15px 20px, 50px 70px;
+    background-repeat: repeat-y, repeat, repeat;
+}
+
+/* MOITIÉ DROITE : Tuile "site-tuile-nuit.svg" en fond */
+.info-pane {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    position: relative;
+    background-color: var(--primary-blue);
+    background-image: url('site-tuile-nuit.svg');
+    background-repeat: repeat-y;
+    background-position: center top;
+    background-size: 100% auto;
+}
+
+/* ESTHÉTIQUE DES CARTES : Style Estampe / Gravure Linoléum sur Papier Blanc-Crème */
+.lino-card {
+    background-color: var(--bg-cream);
+    color: var(--text-dark);
+    padding: 45px 35px 35px 35px;
+    max-width: 440px;
+    width: 100%;
+    position: relative;
+    text-align: center;
+    
+    border: 4px solid var(--primary-blue);
+    clip-path: polygon(
+        0.5% 2%, 98% 0%, 100% 97.5%, 2% 100%
+    );
+    filter: url(#lino-edge);
+    box-shadow: 8px 10px 0px rgba(15, 23, 42, 0.4);
+    
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.45s ease-out, transform 0.45s ease-out;
+}
+
+.snap-section.is-visible .lino-card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+h2 {
+    font-family: 'Geom', sans-serif;
+    font-weight: bold;
+    color: var(--primary-blue);
+    font-size: 1.85rem;
+    margin-bottom: 20px;
+    line-height: 1.25;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+h2::after {
+    content: '';
+    display: block;
+    width: 65px;
+    height: 3.5px;
+    margin: 12px auto 0 auto;
+    background-color: var(--accent-red);
+    border-radius: 2px;
+}
+
+p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+}
+
+.date-highlight {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--accent-red);
+}
+
+.big-quote {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--primary-blue);
+    font-style: italic;
+}
+
+.stamp-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    margin-bottom: 12px;
+    background-color: var(--accent-red);
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transform: rotate(-2deg);
+    border: 2px solid var(--primary-blue);
+}
+
+.lino-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 14px 26px;
+    background-color: var(--accent-red);
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    border: 3px solid var(--primary-blue);
+    box-shadow: 4px 4px 0px var(--primary-blue);
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.lino-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px var(--primary-blue);
+}
+
+.lino-btn.alt {
+    background-color: var(--primary-blue);
+    color: #FFFFFF;
+}
+
+.lino-link {
+    color: var(--accent-red);
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-decoration: underline;
+}
+
+.roof-info {
+    text-align: center;
+}
+
+.scroll-suggestion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.scroll-text {
+    font-family: 'Geom', sans-serif;
+    color: #FAF7F0;
+    font-size: 1.15rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-shadow: 0px 2px 4px rgba(0,0,0,0.3);
+    opacity: 0.95;
+}
+
+.scroll-lino-arrow {
+    animation: linoFloat 2s ease-in-out infinite;
+}
+
+/* Flèche flottante repositionnée en bas à droite durant le défilement */
+.floating-scroll-arrow {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+    pointer-events: none;
+    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.4));
+}
+
+.floating-scroll-arrow.is-active {
+    opacity: 0.95;
+    visibility: visible;
+    transform: translateY(0);
+    animation: linoFloat 2s ease-in-out infinite;
+}
+
+.floating-scroll-arrow.is-hidden {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translateY(10px) !important;
+}
+
+@keyframes linoFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+}
+
+@media (max-width: 768px) {
+    .snap-section {
+        position: relative;
+    }
+
+    .roof-layout,
+    .building-pane {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+
+    .info-pane {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+    }
+
+    .lino-card {
+        max-width: 92%;
+    }
+
+    .logo-jm {
+        width: 80vw;
+    }
+}
